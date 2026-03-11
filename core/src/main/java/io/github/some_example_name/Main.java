@@ -9,11 +9,17 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
-
+    private int widthScreen, heightScreen;
+    private OrthographicCamera camera;
     @Override
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
+        this.widthScreen = Gdx.graphics.getWidth();
+        this.heightScreen = Gdx.graphics.getHeight();
+        this.camera = new OrthographicCamera();
+        this.camera.setToOrtho(false, widthScreen, hieghtScreen);
+        setScreen(new GameScreen(camera));
     }
 
     @Override

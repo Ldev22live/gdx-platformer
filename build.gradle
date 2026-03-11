@@ -29,7 +29,9 @@ configure(subprojects) {
   apply plugin: 'java-library'
   apply plugin: 'kotlin'
   apply plugin: 'groovy'
-  java.sourceCompatibility = 8
+  // Require Java 11 to support Groovy 5 artifacts (groovy-yaml etc.)
+  java.sourceCompatibility = 11
+  java.targetCompatibility = 11
 
   // From https://lyze.dev/2021/04/29/libGDX-Internal-Assets-List/
   // The article can be helpful when using assets.txt in your project.
@@ -54,8 +56,8 @@ configure(subprojects) {
   compileJava {
     options.incremental = true
   }
-  compileKotlin.compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
-  compileTestKotlin.compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+  compileKotlin.compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+  compileTestKotlin.compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
   
 }
 

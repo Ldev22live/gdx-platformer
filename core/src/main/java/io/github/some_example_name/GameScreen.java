@@ -17,18 +17,24 @@ public class GameScreen extends ScreenAdapter {
     private final SpriteBatch _batch;
     private final World world;
     private final Box2DDebugRenderer debugRenderer;
+    private OrthogonalTileMapRenderer orthogonalTileMapRenderer;
+    private TileMapHelper tileMapHelper;
 
     public GameScreen(OrthographicCamera camera) {
         this._camera = camera;
         this._batch = new SpriteBatch();
         this.world = new World(new Vector2(0, 0), false);
         this.debugRenderer = new Box2DDebugRenderer();
+
+        this.tileMapHelper = new TileMapHelper();
+        this.orthogonalTileMapRenderer = tileMapHelper.setupMap();
     }
 
     private void update() {
         this.world.step(1/60f, 6, 2);
         cameraUpdate();
         this._batch.setProjectionMatrix(this._camera.combined);
+        orthogonalTileMapRenderer.setView(_camera);
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
@@ -44,6 +50,7 @@ public class GameScreen extends ScreenAdapter {
         this.update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        orthogonalTileMapRenderer.render();
         _batch.begin();
 
 
@@ -55,6 +62,6 @@ public class GameScreen extends ScreenAdapter {
 
         // world.step(1/60f, 6, 2);
         // debugRenderer.render(world, _camera.combined);
-        
+
     }
 }

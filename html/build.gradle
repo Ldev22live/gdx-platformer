@@ -141,6 +141,10 @@ tasks.register('superDev') {
 
 tasks.compileJava.dependsOn("processResources")
 
+tasks.named("compileKotlin") {
+    dependsOn(tasks.named("processResources"))
+}
+
 java.sourceCompatibility = JavaVersion.VERSION_11
 java.targetCompatibility = JavaVersion.VERSION_11
 sourceSets.main.java.srcDirs = [ "src/main/java/" ]

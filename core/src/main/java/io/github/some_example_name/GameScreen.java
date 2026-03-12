@@ -1,29 +1,41 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import io.github.some_example_name.helpers.Constants;
+import com.badlogic.gdx.ScreenAdapter;
+
 public class GameScreen extends ScreenAdapter {
-    private OrthographicCamera _camera;
-    private SpriteBatch _batch;
-    private World world;
-    private Box2DDebugRenderer debugRenderer;
-    
+    private final OrthographicCamera _camera;
+    private final SpriteBatch _batch;
+    private final World world;
+    private final Box2DDebugRenderer debugRenderer;
+
     public GameScreen(OrthographicCamera camera) {
         this._camera = camera;
         this._batch = new SpriteBatch();
-        this.world = new World(new Vector2(0,0), false);
+        this.world = new World(new Vector2(0, 0), false);
         this.debugRenderer = new Box2DDebugRenderer();
     }
 
-    private void update(){
+    private void update() {
         this.world.step(1/60f, 6, 2);
         cameraUpdate();
         this._batch.setProjectionMatrix(this._camera.combined);
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
     }
 
     private void cameraUpdate(){
-        _camera.position.set(Vector3(0,0,0));
+        _camera.position.set(new Vector3(0, 0, 0));
         _camera.update();
     }
 
